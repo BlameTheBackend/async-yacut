@@ -21,7 +21,7 @@ def create_short_link():
         db.session.commit()
         return jsonify({
             'url': urlmap.original,
-            'short_link': f'{request.host_url.rstrip('/')}/{custom_id}'
+            'short_link': f'{request.host_url.rstrip("/")}/{custom_id}'
         }), 201
     except ValueError as e:
         raise InvalidAPIUsage(str(e), 400)
