@@ -15,6 +15,12 @@ def index_view():
         try:
             if not custom_id:
                 custom_id = get_unique_short_id()
+            elif (
+                URLMap.query.filter_by(short=custom_id).first()
+                or custom_id == 'files'
+            ):
+                flash('Предложенный вариант короткой ссылки уже существует.')
+                return render_template('index.html', form=form)
             url = URLMap(
                 original=form.original_link.data,
                 short=custom_id,
